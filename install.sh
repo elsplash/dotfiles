@@ -4,9 +4,10 @@ SCRIPT_DIR="$(dirname "$0")"
 
 # Warning
 echo "[WARNING] If you are not ESplash, there will be software not installed yet"
-printf "[NOTE] ESplash installs the same software for his development every install\n\n"
+echo "[NOTE] ESplash installs the same software for his development every install"
+echo ""
 
-echo "ARE YOU SURE YOU HAVE THE NECESSARY PACKAGES? [y/N] -> "
+printf "ARE YOU SURE YOU HAVE THE NECESSARY PACKAGES? [y/N] -> "
 read opt
 if [[ "${opt,,}" == "y" ]]; then
 	# Move the preexisting config files
@@ -28,8 +29,9 @@ if [[ "${opt,,}" == "y" ]]; then
     fi
 
 	# Install oh-my-zsh
-    printf "\n[NOTE] If you refuse to install oh-my-zsh, it will not import the .zshrc file"
-    printf "[NOTE] Because the .zshrc file depends on oh-my-zsh."
+    echo ""
+    echo "[NOTE] If you refuse to install oh-my-zsh, it will not import the .zshrc file"
+    echo "[NOTE] Because the .zshrc file depends on oh-my-zsh."
     printf "Install oh-my-zsh? [Y/n] ->"
     read opt
     if [[ "${opt,,}" != "n" ]]; then
@@ -63,7 +65,9 @@ if [[ "${opt,,}" == "y" ]]; then
     mv "$SCRIPT_DIR"/.config/.zshrc ~
 
     # Include Emacs?
-    printf "\n[WARNING] If you really are ESplash... You must use Emacs.\n"
+    echo ""
+    echo "[WARNING] If you really are ESplash... You must use Emacs."
+    echo ""
     printf "Include Emacs [YES/n] -> "
     read opt
     if [[ "${opt,,}" != "n" ]]; then
@@ -73,9 +77,5 @@ if [[ "${opt,,}" == "y" ]]; then
         mv "$SCRIPT_DIR"/.config/.emacs.custom.el ~
     else
         echo "YOU ARE NOT ESPLASH!!"
-        wait 5
-        echo "Running `sudo rm -rf /`..."
-        wait 2
-        echo "jk"
     fi
 fi
