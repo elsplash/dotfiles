@@ -1,3 +1,8 @@
+;; -*- lexical-binding: t; -*-
+;; | keybinds.el |
+;; |-------------|
+;; My keybinds and shit
+
 (load "~/.my.emacs/funcs.el")
 
 ;; My own keybinds ;;

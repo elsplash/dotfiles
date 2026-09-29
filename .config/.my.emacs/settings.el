@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; | The settings |
 ;; |--------------|
 ;; One of the best settings ;)

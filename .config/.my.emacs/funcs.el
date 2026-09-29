@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; | func.el |
 ;; |---------|
 ;; Completely necessary functions.

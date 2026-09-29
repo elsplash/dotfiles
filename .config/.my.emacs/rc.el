@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t; -*-
+;; | rc.el |
+;; |-------|
 ;; Taken from Tsoding :P
 
 (add-to-list 'package-archives
@@ -8,7 +11,7 @@
 (defun my/rc/refr-contents ()
   "Refreshes the package contents"
   (when (not my/rc/has-refr-contents)
-    (setq my/rc/has-refr-contents)
+    (setq my/rc/has-refr-contents t)
     (package-refresh-contents)))
 
 (defun my/rc/fetch-one-pkg (package)
@@ -21,12 +24,3 @@
   "This fetches a list of given packages"
   (dolist (package packages)
     (my/rc/fetch-one-pkg package)))
-
-(defun my/rc/use-theme (theme)
-  "Automatically isntalls, and uses a theme"
-  (let ((theme-package (->> theme
-                            (symbol-name)
-                            (funcall (-flip #'concat) "-theme")
-                            (intern))))
-    (my/rc/fetch-pkg theme-package)
-    (load-theme theme t))

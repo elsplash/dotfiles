@@ -1,3 +1,8 @@
+;; -*- lexical-binding: t; -*-
+;; | hooks.el |
+;; |----------|
+;; The hooks for some niche shit
+
 (require 'use-package)
 
 (load "~/.my.emacs/funcs.el")

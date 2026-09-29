@@ -5,7 +5,13 @@
 
 ;; Taking some inspiration from Tsoding dotfiles :P
 (setq custom-file "~/.emacs.custom.el")
+(load-file custom-file)
 (package-initialize)
+
+(set-face-attribute
+ 'default nil
+ :font "MartianMono Nerd Font Condensed"
+ :height 80)
 
 (load "~/.my.emacs/settings")
 (load "~/.my.emacs/keybinds")
@@ -13,7 +19,9 @@
 
 (load "~/.my.emacs/rc")
 
-(my/rc/use-theme 'atom-one-dark)
+(my/rc/fetch-pkg 'atom-one-dark-theme)
+(require 'atom-one-dark-theme)
+(load-theme 'atom-one-dark)
 
 ;; Corfu setup
 (my/rc/fetch-pkg 'corfu)
@@ -76,5 +84,3 @@
  'consult
  'jinx
  'org-modern)
-
-(load-file custom-file)
