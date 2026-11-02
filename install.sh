@@ -25,7 +25,7 @@ printf "\n[PROMPT] Install the .config files? [Y/n] -> "
 read opt
 
 if [[ "${opt,,}" != "n" ]]; then
-    cp {alacritty,rofi,sway,vis,waybar} ~/.config
+    cp -r {alacritty,rofi,sway,vis,waybar} ~/.config
 fi
 
 # Install oh-my-zsh
@@ -60,7 +60,7 @@ read opt
 
 if [[ "${opt,,}" != "n" ]]; then
     cp .emacs ~/.emacs
-    cp .my.emacs ~/.my.emacs
+    cp -r .my.emacs ~/.my.emacs
 
     printf "\nOhh so you are electricsplash, mb gng.\n"
 else
