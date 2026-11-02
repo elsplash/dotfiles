@@ -17,6 +17,7 @@ read opt
 
 if [[ "${opt,,}" != "y" ]]; then
     printf "\nGood, you know to stay away.\n"
+    exit 0
 fi
 
 # Inject the .config folders first.
