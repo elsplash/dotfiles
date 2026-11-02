@@ -1,81 +1,71 @@
 #!/bin/bash
 
-SCRIPT_DIR="$(dirname "$0")"
+# Change to the config directory.
+cd "$(dirname "$0")/config"
 
-# Warning
-echo "[WARNING] If you are not ESplash, there will be software not installed yet"
-echo "[NOTE] ESplash installs the same software for his development every install"
-echo ""
+echo "ELECTRICONF"
+echo "- The best configuration file there is."
 
-printf "ARE YOU SURE YOU HAVE THE NECESSARY PACKAGES? [y/N] -> "
+printf "\n\n"
+
+echo "[WARNING] Are you VERY sure you are Electricsplash?"
+echo "[WARNING] This script assumes that you have already installed these packages."
+echo "[WARNING] And will not install them in turn, this script will not install anything."
+
+printf "\n[PROMPT] Are you sure you have already installed the packages? [y/N] -> "
 read opt
-if [[ "${opt,,}" == "y" ]]; then
-	# Move the preexisting config files
-    echo "Check if there are preexisting config files, and moving them..."
-    if [[ -e "~/.config/i3" ]]; then
-        mv ~/.config/i3{,.bak}
-    fi
-    if [[ -e "~/.config/kitty" ]]; then
-        mv ~/.config/kitty{,.bak}
-    fi
-    if [[ -e "~/.config/polybar" ]]; then
-        mv ~/.config/polybar{,.bak}
-    fi
-    if [[ -e "~/.config/picom" ]]; then
-        mv ~/.config/picom{,.bak}
-    fi
-    if [[ -e "~/.config/rofi" ]]; then
-        mv ~/.config/rofi{,.bak}
-    fi
 
-	# Install oh-my-zsh
-    echo ""
-    echo "[NOTE] If you refuse to install oh-my-zsh, it will not import the .zshrc file"
-    echo "[NOTE] Because the .zshrc file depends on oh-my-zsh."
-    printf "Install oh-my-zsh? [Y/n] ->"
-    read opt
-    if [[ "${opt,,}" != "n" ]]; then
-		sh -c \
-           "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-		git clone https://github.com/zsh-users/zsh-autosuggestions \
-            ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [[ "${opt,,}" != "y" ]]; then
+    printf "\nGood, you know to stay away.\n"
+fi
 
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-            ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# Inject the .config folders first.
+printf "\n[PROMPT] Install the .config files? [Y/n] -> "
+read opt
 
-		git clone https://github.com/MichaelAquilina/zsh-you-should-use.git \
-            $ZSH_CUSTOM/plugins/you-should-use
+if [[ "${opt,,}" != "n" ]]; then
+    cp {alacritty,rofi,sway,vis,waybar} ~/.config
+fi
 
-		git clone https://github.com/fdellwing/zsh-bat.git \
-            $ZSH_CUSTOM/plugins/zsh-bat
+# Install oh-my-zsh
+printf "\n[NOTE] If you refuse to install oh-my-zsh, it will not import the .zshrc file"
+echo "[NOTE] Because the .zshrc file depends on oh-my-zsh."
 
-        cp "$SCRIPT_DIR"/.config/.zshrc ~
-    fi
+printf "\nInstall oh-my-zsh? [Y/n] -> "
+read opt
+if [[ "${opt,,}" != "n" ]]; then
+	sh -c \
+       "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-    # Inject the config files
-    mv "$SCRIPT_DIR"/.config/i3 ~/.config
-    mv "$SCRIPT_DIR"/.config/kitty ~/.config
-    mv "$SCRIPT_DIR"/.config/polybar ~/.config
-    mv "$SCRIPT_DIR"/.config/picom ~/.config
-    mv "$SCRIPT_DIR"/.config/rofi ~/.config
+	git clone https://github.com/zsh-users/zsh-autosuggestions \
+        ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-    mv "$SCRIPT_DIR"/.config/.gitconfig ~
-    mv "$SCRIPT_DIR"/.config/.tmux.conf ~
-    mv "$SCRIPT_DIR"/.config/.xprofile ~
-    mv "$SCRIPT_DIR"/.config/.zshrc ~
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+        ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-    # Include Emacs?
-    echo ""
-    echo "[WARNING] If you really are ESplash... You must use Emacs."
-    echo ""
-    printf "Include Emacs [YES/n] -> "
-    read opt
-    if [[ "${opt,,}" != "n" ]]; then
-        echo "You really are ESplash, welcome back sire"
-        mv "$SCRIPT_DIR"/.config/.my.emacs ~
-        mv "$SCRIPT_DIR"/.config/.emacs ~
-        mv "$SCRIPT_DIR"/.config/.emacs.custom.el ~
-    else
-        echo "YOU ARE NOT ESPLASH!!"
-    fi
+	git clone https://github.com/MichaelAquilina/zsh-you-should-use.git \
+        $ZSH_CUSTOM/plugins/you-should-use
+
+	git clone https://github.com/fdellwing/zsh-bat.git \
+        $ZSH_CUSTOM/plugins/zsh-bat
+
+    cp "$SCRIPT_DIR"/.config/.zshrc ~
+fi
+
+# Emacs configuration
+printf "\n[NOTE] If you wish to use my configuration files, you must use Emacs.\n\n"
+printf "[PROMPT] Install Emacs configurations? [Y/n] -> "
+read opt
+
+if [[ "${opt,,}" != "n" ]]; then
+    cp .emacs ~/.emacs
+    cp .my.emacs ~/.my.emacs
+
+    printf "\nOhh so you are electricsplash, mb gng.\n"
+else
+    printf "\n[...] ..."
+    wait 3
+    echo "[...] You are NOT Electricsplash."
+    wait 2
+    echo "[...] Right '$(whoami)'?"
 fi
