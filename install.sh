@@ -50,7 +50,7 @@ if [[ "${opt,,}" != "n" ]]; then
 	git clone https://github.com/fdellwing/zsh-bat.git \
         $ZSH_CUSTOM/plugins/zsh-bat
 
-    cp "$SCRIPT_DIR"/.config/.zshrc ~
+    cp .zshrc ~
 fi
 
 # Emacs configuration
